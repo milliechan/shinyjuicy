@@ -32,7 +32,19 @@
   90% { transform: translate(1px, 2px) rotate(3deg); }
   100% { transform: translate(1px, 1px) rotate(0deg); }
 }
+@keyframes star {
+            0% {
+              transform: rotate(0) scale(0);
+            }
+            50% {
+              transform: rotate(180deg) scale(1);
+            }
+            100% {
+              transform: rotate(360deg) scale(0);
+            }
+          }
           html,body {
+            position: relative;
             margin:0;
             padding:0;
             width:100%;
@@ -61,10 +73,14 @@
           #gradient-canvas {
             width:100%;
             height:100%;
-            --gradientcolorzero: #FFE1D3; 
+           /* --gradientcolorzero: #FFE1D3; 
             --gradientcolorone: #f08080; 
             --gradientcolortwo: #f4978e;  
-            --gradientcolorthree: #fbc4ab;
+            --gradientcolorthree: #fbc4ab;*/
+             --gradientcolorzero: #4f000b; 
+            --gradientcolorone: #720026; 
+            --gradientcolortwo: #ce4257;  
+            --gradientcolorthree: #ff7f51 ;
             /*--gradientcolorzero: #CDFFD0; 
             --gradientcolorone: #eee; 
             --gradientcolortwo: #C1F9FD;  
@@ -92,6 +108,18 @@
             /*margin-left: 40px;*/
             margin-top: 22px;
           }
+          div.sparkle {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-image: url(star.png);
+            background-size: cover;
+            animation-iteration-count: 1;
+            animation-name: star;
+            animation-duration: 2000ms;
+            animation-timing-function: linear;
+            /*mix-blend-mode: overlay;*/
+          }
         </style>
     </head>
     <body>
@@ -100,6 +128,20 @@
           <h1 id="juicy"></h1>
         </div>
         <canvas id="gradient-canvas"></canvas>
+        <script type="text/javascript">
+          var el2 = document.getElementById('shiny');
+
+          window.addEventListener('mousemove', e => {
+            var sparkle = document.createElement('div')
+            sparkle.classList.add('sparkle');
+            sparkle.style.top = `${e.clientY-50*Math.random()}px`;
+            sparkle.style.left = `${e.clientX-50*Math.random()}px`;
+            sparkle.style.width = `${100*Math.random()}px`;
+            sparkle.style.height = sparkle.style.width;
+            document.body.appendChild(sparkle)
+            setTimeout(() => sparkle.remove(), 2000)
+          })
+        </script>
         <script type="text/javascript">
           const shiny = document.getElementById('shiny');
           const juicy = document.getElementById('juicy');
